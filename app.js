@@ -2,6 +2,9 @@ const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 
+// Animation duration in milliseconds (matches CSS animation)
+const ANIMATION_DURATION = 300;
+
 let todos = JSON.parse(localStorage.getItem('todos') || '[]');
 
 // Migrate old string-based todos to objects { text, completed }
@@ -28,7 +31,8 @@ function render() {
     checkbox.addEventListener('change', () => {
       todos[i].completed = checkbox.checked;
       save();
-      render();
+      // Smooth transition for completed state
+      li.classList.toggle('completed', checkbox.checked);
     });
 
     const span = document.createElement('span');
@@ -38,9 +42,13 @@ function render() {
     const btn = document.createElement('button');
     btn.textContent = 'Delete';
     btn.addEventListener('click', () => {
-      todos.splice(i, 1);
-      save();
-      render();
+      // Add slide-out animation before removing
+      li.classList.add('removing');
+      setTimeout(() => {
+        todos.splice(i, 1);
+        save();
+        render();
+      }, ANIMATION_DURATION); // Use constant for animation duration
     });
 
     li.appendChild(checkbox);

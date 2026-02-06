@@ -2,6 +2,9 @@ const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 
+// Animation duration in milliseconds (matches CSS animation)
+const ANIMATION_DURATION = 300;
+
 let todos = JSON.parse(localStorage.getItem('todos') || '[]');
 
 // Migrate old string-based todos to objects { text, completed }
@@ -45,7 +48,7 @@ function render() {
         todos.splice(i, 1);
         save();
         render();
-      }, 300); // Match the animation duration
+      }, ANIMATION_DURATION); // Use constant for animation duration
     });
 
     li.appendChild(checkbox);

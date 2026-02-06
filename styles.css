@@ -1,24 +1,303 @@
-:root{--bg:#f6f7fb;--card:#fff;--accent:#2563eb;--danger:#e11d48;--text:#0f1724}
-/* Dark theme overrides applied to document element via data-theme attribute */
-[data-theme="dark"]{--bg:#071024;--card:#0b1220;--accent:#60a5fa;--danger:#fb7185;--text:#e6eef8}
-*{box-sizing:border-box}
-body{font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;background:var(--bg);margin:0;padding:40px;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.toolbar h1{margin:0}
-.toolbar #theme-toggle{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem}
-.toolbar #theme-toggle:hover{opacity:.9}
-body{color:var(--text)}
-.container{width:100%;max-width:480px;background:var(--card);padding:20px;border-radius:8px;box-shadow:0 6px 20px rgba(16,24,40,.08)}
-h1{margin:0 0 12px;font-size:1.25rem}
-#todo-form{display:flex;gap:8px;margin-bottom:12px}
-#todo-input{flex:1;padding:10px;border:1px solid #e6e9ef;border-radius:6px;font-size:1rem}
-#todo-form button{padding:10px 14px;border:none;background:var(--accent);color:#fff;border-radius:6px;cursor:pointer}
-#todo-list{list-style:none;padding:0;margin:0}
-.todo-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:6px;border:1px solid #f0f2f7;margin-bottom:8px}
-.todo-item .todo-text{word-break:break-word;flex:1}
-.todo-item .chk{margin-right:10px}
-.todo-item button{background:transparent;border:1px solid #f0f2f7;padding:6px 8px;border-radius:6px;color:var(--danger);cursor:pointer}
+/* Modern Color Palette with improved contrast */
+:root {
+  --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.06);
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --text: #1f2937;
+  --text-secondary: #6b7280;
+  --input-border: #e5e7eb;
+  --input-focus: #818cf8;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
 
-/* Completed state */
-.todo-item.completed .todo-text{text-decoration:line-through;opacity:.6}
+/* Dark theme with vibrant colors */
+[data-theme="dark"] {
+  --bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  --card: #1e293b;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+  --danger: #f87171;
+  --danger-hover: #ef4444;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --input-border: #334155;
+  --input-focus: #a5b4fc;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  line-height: 1.6;
+  transition: background 0.3s ease;
+}
+
+/* Container with enhanced shadow and border radius */
+.container {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+/* Toolbar with improved spacing */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--card-border);
+}
+
+.toolbar h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--danger) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* Theme toggle button with modern design */
+.toolbar #theme-toggle {
+  background: var(--card);
+  border: 2px solid var(--card-border);
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.toolbar #theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.toolbar #theme-toggle:active {
+  transform: translateY(0);
+}
+
+/* Form with improved layout */
+#todo-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Input with modern styling */
+#todo-input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 2px solid var(--input-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+#todo-input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+  transform: translateY(-1px);
+}
+
+#todo-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Add button with gradient and hover effect */
+#todo-form button {
+  padding: 14px 24px;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+#todo-form button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+#todo-form button:active {
+  transform: translateY(0);
+}
+
+/* Todo list with spacing */
+#todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Todo item with modern card design */
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid var(--card-border);
+  margin-bottom: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+  border-color: var(--accent);
+}
+
+/* Checkbox with custom styling */
+.todo-item .chk {
+  margin-right: 14px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* Todo text with better typography */
+.todo-item .todo-text {
+  word-break: break-word;
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+/* Delete button with modern style */
+.todo-item button {
+  background: transparent;
+  border: 2px solid var(--card-border);
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: 12px;
+}
+
+.todo-item button:hover {
+  background: var(--danger);
+  color: #ffffff;
+  border-color: var(--danger);
+  transform: scale(1.05);
+}
+
+.todo-item button:active {
+  transform: scale(0.95);
+}
+
+/* Completed state with smooth transition */
+.todo-item.completed {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+/* Slide out animation for deleted items */
+.todo-item.removing {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  body {
+    padding: 20px 16px;
+  }
+  
+  .container {
+    padding: 24px;
+  }
+  
+  .toolbar h1 {
+    font-size: 1.5rem;
+  }
+  
+  #todo-form {
+    flex-direction: column;
+  }
+  
+  #todo-form button {
+    width: 100%;
+  }
+}
 

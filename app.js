@@ -28,7 +28,8 @@ function render() {
     checkbox.addEventListener('change', () => {
       todos[i].completed = checkbox.checked;
       save();
-      render();
+      // Smooth transition for completed state
+      li.classList.toggle('completed', checkbox.checked);
     });
 
     const span = document.createElement('span');
@@ -38,9 +39,13 @@ function render() {
     const btn = document.createElement('button');
     btn.textContent = 'Delete';
     btn.addEventListener('click', () => {
-      todos.splice(i, 1);
-      save();
-      render();
+      // Add slide-out animation before removing
+      li.classList.add('removing');
+      setTimeout(() => {
+        todos.splice(i, 1);
+        save();
+        render();
+      }, 300); // Match the animation duration
     });
 
     li.appendChild(checkbox);
